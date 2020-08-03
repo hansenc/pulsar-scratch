@@ -4,7 +4,13 @@
 
 ## Issue description
 
-Function seems to be created, but never called. `topics stats-internal` shows messages consumed by the function, but `function stats` shows no messages consumed. Example output (gathered while `FunctionIT` hangs):
+Function seems to be created, but never called. `pulsar-admin topics stats-internal` shows messages consumed by the function, 
+but `pulsar-admin function stats` shows no messages consumed.
+ 
+However, if the function is triggered (via `pulsar-admin functions trigger ...`) before producing messages to the function's input, 
+the function is called as expected. See `com.github.hansenc.pulsar.FunctionIT.testWithTrigger` and `com.github.hansenc.pulsar.FunctionIT.testWithoutTrigger`.
+
+Example output (gathered while `FunctionIT` hangs):
 ```
 root@6723490da207:/# /pulsar/bin/pulsar-admin topics stats-internal persistent://public/default/test-input
 {
